@@ -7,7 +7,7 @@ const AppContextProvider = (props) => {
 
 
     const value = (
-        doctors
+        { doctors }
     )
 
     return (
