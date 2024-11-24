@@ -7,9 +7,9 @@ const Footer = () => {
             <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm'>
                 {/*--------------left-section---------------*/}
                 <div>
-                    <img className='mb-5 w-40' src={assets.logo} alt='' />
+                    <img className='mb-5 w-40' src={assets.logoreal} alt='' />
                     <p className='w-full md:w-2/3 text-gray-600 leading-6 '>
-                        Our clinic in Vietnam is dedicated to providing high-quality healthcare with experienced doctors and modern equipment, always prioritizing your health.
+                        Our clinic in Vietnam is dedicated to provide high-quality healthcare with experienced doctors and modern equipment, always prioritizing your health.
                     </p>
                 </div>
                 {/*--------------center-section---------------*/}
