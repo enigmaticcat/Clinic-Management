@@ -22,42 +22,46 @@ const Appointment = () => {
   const getAvailableSlots = () => {
     const today = new Date();
     const slots = [];
-
+  
     for (let i = 0; i < 7; i++) {
       const currentDate = new Date(today);
       currentDate.setDate(today.getDate() + i);
-
+  
+      const startTime = new Date(currentDate);
+      startTime.setHours(9, 0, 0, 0);
+  
       const endTime = new Date(currentDate);
-      endTime.setHours(21, 0, 0, 0);
-
-      if (i === 0) {
-        currentDate.setHours(today.getHours() + 1);
-        currentDate.setMinutes(currentDate.getMinutes() > 30 ? 30 : 0);
-      } else {
-        currentDate.setHours(10);
-        currentDate.setMinutes(0);
-      }
-
+      endTime.setHours(17, 0, 0, 0);
+  
       const daySlots = [];
-      while (currentDate < endTime) {
-        const formattedTime = currentDate.toLocaleTimeString([], {
+      while (startTime < endTime) {
+        const formattedTime = startTime.toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
         });
-
-        daySlots.push({
-          dateTime: new Date(currentDate),
-          time: formattedTime,
+  
+        const nextTime = new Date(startTime);
+        nextTime.setMinutes(startTime.getMinutes() + 60);
+  
+        const formattedNextTime = nextTime.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
         });
-
-        currentDate.setMinutes(currentDate.getMinutes() + 30);
+  
+        daySlots.push({
+          dateTime: new Date(startTime),
+          time: `${formattedTime} - ${formattedNextTime}`,
+        });
+  
+        startTime.setMinutes(startTime.getMinutes() + 60); 
       }
-
+  
       slots.push(daySlots);
     }
-
+  
     setDocSlots(slots);
   };
+  
 
   useEffect(() => {
     if (doctors.length > 0) {
