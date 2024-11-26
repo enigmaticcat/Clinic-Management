@@ -3,12 +3,15 @@ import { useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
 import RelatedDoctors from "../components/RelatedDoctors";
+import axiosClient from "../axiosClient";
+import { useUser } from '../context/UserContext';
 
 const Appointment = () => {
   const { docId } = useParams();
   const { doctors } = useContext(AppContext);
   const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-
+ 
+  const { userId } = useUser();
   const [docInfo, setDocInfo] = useState(null);
   const [docSlots, setDocSlots] = useState([]);
   const [slotIndex, setSlotIndex] = useState(0);
@@ -57,6 +60,32 @@ const Appointment = () => {
     }
 
     setDocSlots(slots);
+  };
+
+  const bookAppointment = async () => {
+   
+    if (selectedSlotIndex === null) {
+      alert("Please select a time slot.");
+      return;
+    }
+
+    const selectedSlot = docSlots[slotIndex][selectedSlotIndex];
+    const appointmentData = {
+      doctorId: docInfo._id,
+      doctorName: docInfo.name,
+      date: selectedSlot.dateTime.toISOString(), 
+      time: selectedSlot.time,
+      patientId: userId
+    };
+
+    try {
+      const response = await axiosClient.post("/appointments", appointmentData);
+      console.log("Appointment booked successfully:", response);
+      alert("Your appointment has been booked!");
+    } catch (error) {
+      console.error("Error booking appointment:", error);
+      alert("Failed to book appointment. Please try again.");
+    }
   };
 
   useEffect(() => {
@@ -146,12 +175,16 @@ const Appointment = () => {
               </p>
             ))}
           </div>
-          <button className="bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6">Book an appointment</button>
+          <button
+            className="bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6"
+            onClick={bookAppointment}
+          >
+            Book an appointment
+          </button>
         </div>
 
-        {/*List*/}
-        <RelatedDoctors docId = {docId} speciality = {docInfo.speciality} />
-
+        {/* List of Related Doctors */}
+        <RelatedDoctors docId={docId} speciality={docInfo.speciality} />
       </div>
     )
   );
