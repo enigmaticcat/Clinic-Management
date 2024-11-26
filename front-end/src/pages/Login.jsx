@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import axiosClient from '../axiosClient';
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../context/UserContext';
+import { useUser } from '../context/UserContext'; // Import context
+
 const Login = () => {
     const [state, setState] = useState('Sign Up');
     const [email, setEmail] = useState('');
@@ -93,6 +93,5 @@ const Login = () => {
         </form>
     );
 };
-
 
 export default Login;
