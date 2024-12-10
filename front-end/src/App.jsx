@@ -10,6 +10,7 @@ import Contact from './pages/Contact';
 import MyProfile from './pages/MyProfile';
 import MyAppointments from './pages/MyAppointments';
 import Footer from "./components/Footer";
+import ChangePassword from "./pages/ChangePassword";
 const App = () => {
   return (
     <div className="mx-4 sm:mx-[10%]">
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/my-profile' element={<MyProfile />} />
         <Route path='/my-appointments' element={<MyAppointments />} />
         <Route path='/appointments/:docId' element={<Appointment />} />
+        <Route path='/change-password' element={<ChangePassword />} />
       </Routes>
       <Footer />
     </div>

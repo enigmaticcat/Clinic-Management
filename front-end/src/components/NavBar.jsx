@@ -40,12 +40,14 @@ const NavBar = () => {
                                 <div className='min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4'>
                                     <p onClick={() => navigate('my-profile')} className='hover:text-black cursor-pointer'>My Profile</p>
                                     <p onClick={() => navigate('my-appointments')} className='hover:text-black cursor-pointer'>My Appointments</p>
+                                    <p onClick={() => navigate('change-password')} className='hover:text-black cursor-pointer'>Change Password</p>
                                     <p onClick={() => setToken(false)} className='hover:text-black cursor-pointer'>Logout</p>
                                 </div>
                             </div>
                         </div>
                         : <button onClick={() => navigate('/login')} className='bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block'>Create Account</button>
                 }
+                {/* <img onClick={} className='w-6 md:hidden' src={assets.menu_icon} alt = "" /> */}
             </div>
         </div >
     )
